@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const App = props => {
-  const [name, setName] = useState(props.name);
-  const [price, setPrice] = useState(props.price);
+  const [state, setState] = useState(props);
+  const { name, price } = state;
 
-  const reset = () => {
-    setPrice(props.price);
-    setName(props.name);
-  }
+  useEffect(() => {
+    console.log('useEffect is inovoked.')
+  }, []);
 
   return (
     <>
-      <p>現在の{name}は、{price}円です</p>
-      <button onClick={() => setPrice(price + 1)}>+1</button>
-      <button onClick={() => setPrice(price - 1)}>-1</button>
-      <button onClick={reset}>Reset</button>
-      {/* onChangeでinput欄の変更(入力)イベントを拾い、nameにセットする */}
-      <input value={name} onChange={e => setName(e.target.value)}/>
+      <p>現在の{name}は、{price}円です。</p>
+      <button onClick={() => setState({...state, price: price + 1})}>+1</button>
+      <button onClick={() => setState({...state, price: price - 1})}>-1</button>
+      <button onClick={() => setState(props)}>Reset</button>
+      <input value={name} onChange={e => setState({...state, name: e.target.value})}/>
     </>
   );
 }
