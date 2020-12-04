@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import reducer from '../reducers';  // /index.jsは省略可
+import Event from './Event'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -54,6 +55,8 @@ const App = () => {
           </tr>
         </thead>
         <tbody>
+          {/* index(mapの第二引数としてデフォルトで入ってるもの)を用いてユニークなキーをつける */}
+          { state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch} />)) }
         </tbody>
       </table>
     </div>
